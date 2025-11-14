@@ -22,6 +22,7 @@ jobs:
               run:  npm run test
 
     deploye:
+        needs: greet
         runs-on: ubuntu-latest
         steps:
             - name: deploy-to
