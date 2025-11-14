@@ -4,5 +4,20 @@ jobs:
     greet:
         runs-on: ubuntu-latest
         steps:
-            - name: "greet-user"
-              run: echo "this user greeting"
+            - name: greet-user
+              uses:  actions/checkout@v5
+            #   repository: "https://github.com/sumit26-lab/react-cicd-basic.git"
+            - name:  install node js in vm
+              uses: actions/setup-node@v6 
+              with: 
+                node-version: 20
+
+            - name: print node version
+              run : node -v
+            
+            - name: install depandense!
+              run:  npm ci
+
+            - name: run testCase--on code
+              run:  npm run test
+ 
