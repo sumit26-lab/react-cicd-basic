@@ -6,7 +6,8 @@ on:
             - main
              - "sumit/**"
         paths-ignore:
-             - '.github/workflows/**'     
+            - 'README.md'
+            #  - '.github/workflows/**'     
     
 
 
@@ -75,13 +76,13 @@ jobs:
         needs: build
         runs-on: ubuntu-latest
         steps:
-            - name: upload dist Artifact 
+            - name: Download dist Artifact 
               uses: actions/download-artifact@v5
               with:
                 name: dist-file
                 path: dist
-            
-            #   run: echo "project is deploy process ..."  
+            - name: Deploye 
+              run: echo "project is deploy process ..."  
 
             
  
