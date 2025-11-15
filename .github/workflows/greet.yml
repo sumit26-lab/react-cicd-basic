@@ -14,6 +14,11 @@ jobs:
 
             - name: print node version
               run : node -v
+            - name : cache-nodejs
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm 
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             
             - name: install depandense!
               run:  npm ci
@@ -32,6 +37,12 @@ jobs:
               uses: actions/setup-node@v6 
               with: 
                 node-version: 20
+            - name : cache-nodejs
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm 
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  
+                
             - name: build the project
               run: npm run build
             - name: to build 
