@@ -1,0 +1,98 @@
+name: React-github-pages
+# on: [pushworkflow_dispatch]
+on: 
+    push:
+        branches:
+            - main
+             - "sumit/**"
+        paths-ignore:
+            - 'README.md'
+            - '.github/workflows/**'
+    workflow_dispatch:            
+    
+
+
+
+jobs:
+    greet:
+        runs-on: ubuntu-latest
+        steps:
+            - name: greet-user
+              uses:  actions/checkout@v5
+            #   repository: "https://github.com/sumit26-lab/react-cicd-basic.git"
+            - name:  install node js in vm
+              uses: actions/setup-node@v6 
+              with: 
+                node-version: 20
+
+            - name: print node version
+              run : node -v
+            - name : cache-nodejs
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm 
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            
+            - name: install depandense!
+              run:  npm ci
+
+            - name: run testCase--on code
+              run:  npm run test
+        
+    
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: deploy-to
+              uses:  actions/checkout@v5
+
+            - name:  install node js in vm
+              uses: actions/setup-node@v6 
+              with: 
+                node-version: 20
+                cache: 'npm'
+            
+            - name: install depandense!
+              run:  npm ci    
+
+          
+            - name : cache-nodejs
+              uses: actions/cache@v4
+              with:
+                path: ~/.npm 
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} 
+            - name: build the project
+              run: npm run build
+            - name: upload dist Artifact 
+              uses: actions/upload-pages-artifact@v4 
+              with:
+                name: github-pages
+                path: dist
+
+            
+             
+
+
+    deploye:
+        needs: build
+        runs-on: ubuntu-latest
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+        permissions:
+            pages: write      # to deploy to Pages
+            id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+
+
+        steps:
+          - name: Deploy to GitHub Pages
+            id: deployment
+            uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
+            with:
+                token: ${{secrets.GITHUB_TOKEN}}
+            
+ 

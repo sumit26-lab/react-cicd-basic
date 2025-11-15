@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+   "homepage": "https://github.com/sumit26-lab/react-cicd-basic",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
