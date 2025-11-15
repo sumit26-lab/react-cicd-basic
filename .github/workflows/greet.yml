@@ -36,9 +36,9 @@ jobs:
 
             - name: run testCase--on code
               run:  npm run test
-
-    deploye:
-        needs: greet
+        
+    
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: deploy-to
@@ -61,9 +61,27 @@ jobs:
                 key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} 
             - name: build the project
               run: npm run build
-            - name: to build 
+            - name: upload dist Artifact 
+              uses: actions/upload-artifact@v4 
+              with:
+                name: dist-file
+                path: dist
+
             
-              run: echo "project is deploy process ..."  
+             
+
+
+    deploye:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: upload dist Artifact 
+              uses: actions/download-artifact@v5
+              with:
+                name: dist-file
+                path: dist
+            
+            #   run: echo "project is deploy process ..."  
 
             
  
