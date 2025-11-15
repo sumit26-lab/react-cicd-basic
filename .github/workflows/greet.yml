@@ -32,20 +32,24 @@ jobs:
         steps:
             - name: deploy-to
               uses:  actions/checkout@v5
-            #   repository: "https://github.com/sumit26-lab/react-cicd-basic.git"
-            - name:  install node js in vm
-              uses: actions/setup-node@v6 
-              with: 
-                node-version: 20
+          
             - name : cache-nodejs
               uses: actions/cache@v4
               with:
                 path: ~/.npm 
-                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  
-                
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} 
+                   
+            - name:  install node js in vm
+              uses: actions/setup-node@v6 
+              with: 
+                node-version: 20
+
+           
+
             - name: build the project
               run: npm run build
             - name: to build 
+            
               run: echo "project is deploy process ..."  
 
             
