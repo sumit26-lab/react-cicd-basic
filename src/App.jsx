@@ -1,7 +1,8 @@
 import './App.css'
 
 function App() {
-  let NAME="sumit"
+let a = 10;   // unused → SonarQube FAIL
+
 
   return (
     <>
