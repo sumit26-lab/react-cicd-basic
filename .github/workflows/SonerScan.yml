@@ -23,7 +23,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=sumit26-lab_react-cicd-basic
-            -Dsonar.organization=sumit2-lab
+            -Dsonar.organization=sumit26-lab
             -Dsonar.host.url=https://sonarcloud.io
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
