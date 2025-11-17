@@ -7,7 +7,7 @@ on:
              - "sumit/**"
         paths-ignore:
             - 'README.md'
-            - '.github/workflows/**'
+            # - '.github/workflows/**'
     workflow_dispatch:            
     
 
