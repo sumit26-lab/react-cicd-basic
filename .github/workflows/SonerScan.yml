@@ -20,7 +20,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
-            -Dsonar.projectKey=react-cicd-basic
+            -Dsonar.projectKey=sumit26-lab_react-cicd-basic
             -Dsonar.organization=sumit26-lab
             -Dsonar.host.url=https://sonarcloud.io
         env:
