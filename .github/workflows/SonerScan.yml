@@ -1,36 +1,27 @@
-name: Build
+name: SonarQube Analysis
+
 on:
   push:
     branches:
       - master
-      - tesing
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
-  sonarqube:
+  build:
+    name: SonarQube Scan
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.projectKey=sumit26-lab_react-cicd-basic
-            -Dsonar.organization=sumit26-lab
-            -Dsonar.host.url=https://sonarcloud.io
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v3
         env:
+          SONAR_HOST_URL: http://localhost:9000
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      -  name: SonarQube Quality Gate Check
-         uses:  SonarSource/sonarcloud-quality-gate-action@v1
-
-         env:
+      - name: SonarQube Quality Gate Check
+        uses: sonarsource/sonarqube-quality-gate-action@v1
+        env:
+          SONAR_HOST_URL: http://localhost:9000
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
-    
